@@ -28,6 +28,7 @@ A projekt egy egyszerű, de funkcionális videojáték-ajánló oldal, amely int
 
 ## Összegzés tétel (összes pontszám kiszámítása)
 
+```javascript
 function osszegzes(pontok) {
   let osszeg = 0;
   for (let i = 0; i < pontok.length; i++) {
@@ -35,9 +36,10 @@ function osszegzes(pontok) {
   }
   return osszeg;
 }
+```
 
 ## Paraméteres függvény – játék ajánlása
-
+```javascript
 function ajanlJatekot(kor) {
   if (kor < 12) {
     return "Minecraft";
@@ -47,9 +49,11 @@ function ajanlJatekot(kor) {
     return "Elden Ring";
   }
 }
+```
 
 ## Logikai művelet és elágazás
 
+```javascript
 function vanEAjanlott(jatekok, keresett) {
   for (let i = 0; i < jatekok.length; i++) {
     if (jatekok[i].toLowerCase() === keresett.toLowerCase()) {
@@ -58,10 +62,12 @@ function vanEAjanlott(jatekok, keresett) {
   }
   return false;
 }
+```
 
 
 ## Maximum tétel – legmagasabb pont kiválasztása
 
+```javascript
 function legjobbPont(pontok) {
   let max = pontok[0];
   for (let i = 1; i < pontok.length; i++) {
@@ -71,5 +77,6 @@ function legjobbPont(pontok) {
   }
   return max;
 }
+```
 
 
