@@ -1,25 +1,144 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Játékajánló Főoldal</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameFinder - Home</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Üdvözöllek a Játékajánló oldalon!</h1>
-  <p>Fedezd fel a legjobb videojátékokat korosztályod szerint!</p>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                        <polyline points="17 2 12 7 7 2"></polyline>
+                    </svg>
+                    <h1>GameFinder</h1>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link active">Home</a>
+                    <a href="ajanlok.html" class="nav-link">Recommendations</a>
+                    <a href="teszt.html" class="nav-link">Quiz</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-  <h2>Népszerű játékok</h2>
-  <ul>
-    <li>Minecraft</li>
-    <li>Fortnite</li>
-    <li>Elden Ring</li>
-    <li>uziui</li>
-  </ul>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container text-center">
+            <svg class="hero-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+            <h2 class="hero-title">Discover Your Next Favorite Game</h2>
+            <p class="hero-description">
+                Find the perfect game based on your age and preferences. Take our quiz or browse our curated recommendations.
+            </p>
+            <div class="hero-buttons">
+                <a href="teszt.html" class="btn btn-primary">
+                    <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    Take the Quiz
+                </a>
+                <a href="ajanlok.html" class="btn btn-secondary">Browse Games</a>
+            </div>
+        </div>
+    </section>
 
-  <nav>
-    <a href="ajanlok.html">Ajánlók</a> |
-    <a href="teszt.html">Kvíz</a>
-  </nav>
+    <!-- Popular Games Section -->
+    <section class="popular-games">
+        <div class="container">
+            <h3 class="section-title">Popular Games</h3>
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-card-header">
+                        <h4 class="game-title">Minecraft</h4>
+                        <div class="game-meta">
+                            <span class="rating">
+                                <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                4.8
+                            </span>
+                            <span class="age-badge">7+</span>
+                        </div>
+                    </div>
+                    <div class="game-card-content">
+                        <p>A sandbox game where creativity knows no bounds. Build, explore, and survive in blocky worlds.</p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-card-header">
+                        <h4 class="game-title">Fortnite</h4>
+                        <div class="game-meta">
+                            <span class="rating">
+                                <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                4.5
+                            </span>
+                            <span class="age-badge">12+</span>
+                        </div>
+                    </div>
+                    <div class="game-card-content">
+                        <p>Battle royale phenomenon with building mechanics. Drop in, loot up, and be the last one standing.</p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-card-header">
+                        <h4 class="game-title">Elden Ring</h4>
+                        <div class="game-meta">
+                            <span class="rating">
+                                <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                4.9
+                            </span>
+                            <span class="age-badge">16+</span>
+                        </div>
+                    </div>
+                    <div class="game-card-content">
+                        <p>Epic dark fantasy action RPG. Explore a vast open world filled with danger and mystery.</p>
+                    </div>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-card-header">
+                        <h4 class="game-title">The Legend of Zelda</h4>
+                        <div class="game-meta">
+                            <span class="rating">
+                                <svg class="star-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                4.9
+                            </span>
+                            <span class="age-badge">10+</span>
+                        </div>
+                    </div>
+                    <div class="game-card-content">
+                        <p>Adventure through Hyrule in this beloved action-adventure series with puzzles and exploration.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2025 GameFinder. Find your perfect game today!</p>
+        </div>
+    </footer>
 </body>
 </html>

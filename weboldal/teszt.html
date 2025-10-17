@@ -1,39 +1,135 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Játék Kvíz</title>
-  <script src="script.js" defer></script>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameFinder - Quiz</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Töltsd ki a játékos kvízt!</h1>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect>
+                        <polyline points="17 2 12 7 7 2"></polyline>
+                    </svg>
+                    <h1>GameFinder</h1>
+                </div>
+                <nav class="nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="ajanlok.html" class="nav-link">Recommendations</a>
+                    <a href="teszt.html" class="nav-link active">Quiz</a>
+                </nav>
+            </div>
+        </div>
+    </header>
 
-  <label for="kor">Add meg az életkorod:</label>
-  <input type="number" id="kor">
-  <button onclick="jatekAjanlas()">Ajánlj játékot</button>
-  <p id="ajanlas"></p>
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <a href="index.html" class="back-link">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to Home
+            </a>
+            <h2 class="page-title">Gamer Quiz</h2>
+            <p class="page-description">
+                Answer these questions to discover your gamer profile and get personalized game recommendations!
+            </p>
+        </div>
+    </section>
 
-  <hr>
+    <!-- Quiz Section -->
+    <section class="quiz-section">
+        <div class="container quiz-container">
+            <!-- Quiz Card -->
+            <div id="quizCard" class="quiz-card">
+                <div class="quiz-header">
+                    <div class="quiz-progress-info">
+                        <span id="questionNumber">Question 1 of 5</span>
+                    </div>
+                    <div class="progress-bars" id="progressBars"></div>
+                </div>
+                <h3 class="quiz-question" id="questionText"></h3>
+                <div class="quiz-options" id="optionsContainer"></div>
+            </div>
 
-  <h2>Kvíz pontszám</h2>
-  <p>Add meg a válaszaid pontszámait (számok, vesszővel elválasztva):</p>
-  <input type="text" id="pontokInput" placeholder="pl. 4,5,3,2">
-  <button onclick="szamitasok()">Számítsd ki!</button>
+            <!-- Results Card -->
+            <div id="resultsCard" class="results-card" style="display: none;">
+                <div class="results-header">
+                    <svg class="trophy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                        <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                        <path d="M4 22h16"></path>
+                        <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                        <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                        <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+                    </svg>
+                    <h3 class="results-title">Quiz Complete!</h3>
+                    <p class="results-subtitle">Here are your results</p>
+                </div>
 
-  <p>Összes pont: <span id="osszegPont"></span></p>
-  <p>Legjobb pont: <span id="legjobbPont"></span></p>
+                <div class="results-content">
+                    <!-- Score -->
+                    <div class="score-box">
+                        <p class="score-label">Your Score</p>
+                        <p class="score-value" id="scoreValue"></p>
+                        <p class="score-percentage" id="scorePercentage"></p>
+                    </div>
 
-  <hr>
+                    <!-- Gamer Level -->
+                    <div class="level-box">
+                        <p class="level-label">Your Gamer Level</p>
+                        <p class="level-value" id="gamerLevel"></p>
+                    </div>
 
-  <h2>Játék kereső</h2>
-  <input type="text" id="keresettJatek" placeholder="Írj be egy játékot">
-  <button onclick="keresJatek()">Keresés</button>
-  <p id="keresEredmeny"></p>
+                    <!-- Age-based Recommendation -->
+                    <div class="input-section">
+                        <label for="ageInput" class="input-label">Enter your age for a personalized recommendation:</label>
+                        <input type="number" id="ageInput" class="input-field" placeholder="Your age" min="1" max="120">
+                        <div id="ageRecommendation" class="recommendation-box" style="display: none;">
+                            <p class="recommendation-label">Recommended game for age <span id="displayAge"></span>:</p>
+                            <p class="recommendation-game">
+                                <svg class="star-icon-small" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                                </svg>
+                                <span id="recommendedGame"></span>
+                            </p>
+                        </div>
+                    </div>
 
-  <nav>
-    <a href="index.html">Főoldal</a> |
-    <a href="ajanlok.html">Ajánlók</a>
-  </nav>
+                    <!-- Favorite Game Check -->
+                    <div class="input-section">
+                        <label for="favoriteInput" class="input-label">Check if your favorite game is in our popular list:</label>
+                        <input type="text" id="favoriteInput" class="input-field" placeholder="Enter game name">
+                        <div id="favoriteResult" class="favorite-result" style="display: none;"></div>
+                    </div>
+
+                    <!-- Fun Fact -->
+                    <div class="fun-fact">
+                        <p class="fun-fact-label">Fun Fact:</p>
+                        <p class="fun-fact-text">The highest score in our example leaderboard is <strong id="highestScore"></strong> points!</p>
+                    </div>
+
+                    <button class="btn btn-primary btn-full" onclick="resetQuiz()">Take Quiz Again</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container text-center">
+            <p>&copy; 2025 GameFinder. Find your perfect game today!</p>
+        </div>
+    </footer>
+
+    <script src="game-functions.js"></script>
+    <script src="quiz.js"></script>
 </body>
 </html>
