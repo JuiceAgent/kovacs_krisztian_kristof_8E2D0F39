@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Játék Kvíz</title>
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Töltsd ki a játékos kvízt!</h1>
+
+  <label for="kor">Add meg az életkorod:</label>
+  <input type="number" id="kor">
+  <button onclick="jatekAjanlas()">Ajánlj játékot</button>
+  <p id="ajanlas"></p>
+
+  <hr>
+
+  <h2>Kvíz pontszám</h2>
+  <p>Add meg a válaszaid pontszámait (számok, vesszővel elválasztva):</p>
+  <input type="text" id="pontokInput" placeholder="pl. 4,5,3,2">
+  <button onclick="szamitasok()">Számítsd ki!</button>
+
+  <p>Összes pont: <span id="osszegPont"></span></p>
+  <p>Legjobb pont: <span id="legjobbPont"></span></p>
+
+  <hr>
+
+  <h2>Játék kereső</h2>
+  <input type="text" id="keresettJatek" placeholder="Írj be egy játékot">
+  <button onclick="keresJatek()">Keresés</button>
+  <p id="keresEredmeny"></p>
+
+  <nav>
+    <a href="index.html">Főoldal</a> |
+    <a href="ajanlok.html">Ajánlók</a>
+  </nav>
+</body>
+</html>
