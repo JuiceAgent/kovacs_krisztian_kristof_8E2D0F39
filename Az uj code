@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videójáték Kvíz</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px;
+        }
+        
+        button:hover {
+            background: #5568d3;
+        }
+        
+        .answer-btn {
+            width: 100%;
+            text-align: left;
+            margin: 10px 0;
+        }
+        
+        .answer-btn.correct {
+            background: #28a745;
+        }
+        
+        .answer-btn.wrong {
+            background: #dc3545;
+        }
+        
+        .question-text {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .score-display {
+            font-size: 24px;
+            text-align: center;
+            margin: 20px 0;
+            color: #667eea;
+        }
+        
+        .stats {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 1. OLDAL: Kezdőlap -->
+        <div id="homePage" class="page active">
+            <h1>🎮 Videójáték Kvíz</h1>
+            <p class="center">Teszteld a videójáték tudásodat!</p>
+            <div class="center">
+                <button onclick="startQuiz()">Kvíz Kezdése</button>
+            </div>
+        </div>
+
+        <!-- 2. OLDAL: Kvíz -->
+        <div id="quizPage" class="page">
+            <h1>Kérdés <span id="questionNumber">1</span>/5</h1>
+            <div class="question-text" id="questionText"></div>
+            <div id="answersContainer"></div>
+        </div>
+
+        <!-- 3. OLDAL: Eredmények -->
+        <div id="resultsPage" class="page">
+            <h1>Eredmények</h1>
+            <div class="score-display">
+                Pontszám: <span id="finalScore">0</span>/5
+            </div>
+            <div class="stats" id="statsContainer"></div>
+            <div class="center">
+                <button onclick="restartQuiz()">Új Játék</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Kérdések tömbje
+        const questions = [
+            {
+                question: "Melyik évben jelent meg a Super Mario Bros?",
+                answers: ["1983", "1985", "1987", "1990"],
+                correct: 1
+            },
+            {
+                question: "Ki a főszereplő a The Legend of Zelda játékokban?",
+                answers: ["Zelda", "Link", "Ganon", "Mario"],
+                correct: 1
+            },
+            {
+                question: "Melyik nem egy PlayStation exkluzív játék?",
+                answers: ["God of War", "Halo", "The Last of Us", "Uncharted"],
+                correct: 1
+            },
+            {
+                question: "Hány blokk típus van alapból a Minecraftban?",
+                answers: ["50-nél kevesebb", "50-100 között", "100-200 között", "200 felett"],
+                correct: 3
+            },
+            {
+                question: "Melyik játék nem egy battle royale?",
+                answers: ["Fortnite", "Apex Legends", "Overwatch", "PUBG"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let answeredQuestions = [];
+
+        // 1. FÜGGVÉNY: Kvíz indítása (paraméteres függvény)
+        function startQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            answeredQuestions = [];
+            showPage('quizPage');
+            displayQuestion();
+        }
+
+        // 2. FÜGGVÉNY: Oldal váltás
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            // Ciklus: végigmegyünk az oldalakon
+            for (let i = 0; i < pages.length; i++) {
+                pages[i].classList.remove('active');
+            }
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        // 3. FÜGGVÉNY: Kérdés megjelenítése
+        function displayQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('questionNumber').textContent = currentQuestion + 1;
+            document.getElementById('questionText').textContent = q.question;
+            
+            const container = document.getElementById('answersContainer');
+            container.innerHTML = '';
+            
+            // Ciklus: végigmegyünk a válaszokon
+            for (let i = 0; i < q.answers.length; i++) {
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.textContent = q.answers[i];
+                btn.onclick = function() { checkAnswer(i); };
+                container.appendChild(btn);
+            }
+        }
+
+        // 4. FÜGGVÉNY: Válasz ellenőrzése (paraméteres)
+        function checkAnswer(selected) {
+            const q = questions[currentQuestion];
+            const buttons = document.querySelectorAll('.answer-btn');
+            
+            // Logikai művelet és elágazás
+            if (selected === q.correct) {
+                buttons[selected].classList.add('correct');
+                score++; // Aritmetikai művelet: összeadás
+            } else {
+                buttons[selected].classList.add('wrong');
+                buttons[q.correct].classList.add('correct');
+            }
+            
+            // Tároljuk a választ
+            answeredQuestions.push({
+                question: currentQuestion,
+                selected: selected,
+                correct: q.correct,
+                isCorrect: selected === q.correct
+            });
+            
+            // Letiltjuk a gombokat
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].disabled = true;
+            }
+            
+            setTimeout(function() {
+                currentQuestion++; // Aritmetikai művelet: növelés
+                
+                // Elágazás: van-e még kérdés?
+                if (currentQuestion < questions.length) {
+                    displayQuestion();
+                } else {
+                    showResults();
+                }
+            }, 1500);
+        }
+
+        // 5. FÜGGVÉNY: Eredmények megjelenítése
+        function showResults() {
+            showPage('resultsPage');
+            document.getElementById('finalScore').textContent = score;
+            
+            // PROGRAMOZÁSI TÉTELEK:
+            
+            // 1. ÖSSZEGZÉS: összes válasz összeszámolása
+            let totalAnswers = answeredQuestions.length;
+            
+            // 2. SZÁMLÁLÁS: helyes válaszok száma
+            let correctCount = 0;
+            for (let i = 0; i < answeredQuestions.length; i++) {
+                if (answeredQuestions[i].isCorrect) {
+                    correctCount++; // Aritmetikai művelet
+                }
+            }
+            
+            // 3. MAXIMUM: legjobb sorozat keresése
+            let maxStreak = findMaxStreak(answeredQuestions);
+            
+            // Aritmetikai művelet: százalék számítás
+            let percentage = (score / questions.length) * 100;
+            
+            // Eredmények megjelenítése
+            const statsHTML = `
+                <p><strong>Összes kérdés:</strong> ${totalAnswers}</p>
+                <p><strong>Helyes válaszok:</strong> ${correctCount}</p>
+                <p><strong>Sikeres:</strong> ${percentage.toFixed(0)}%</p>
+                <p><strong>Leghosszabb sorozat:</strong> ${maxStreak} helyes válasz</p>
+            `;
+            
+            document.getElementById('statsContainer').innerHTML = statsHTML;
+        }
+
+        // 6. FÜGGVÉNY: Maximum/leghosszabb sorozat keresése (PROGRAMOZÁSI TÉTEL)
+        function findMaxStreak(answers) {
+            let maxStreak = 0;
+            let currentStreak = 0;
+            
+            // Ciklus: végigmegyünk a válaszokon
+            for (let i = 0; i < answers.length; i++) {
+                // Elágazás és logikai művelet
+                if (answers[i].isCorrect) {
+                    currentStreak++; // Aritmetikai művelet
+                    // Elágazás: új maximum?
+                    if (currentStreak > maxStreak) {
+                        maxStreak = currentStreak;
+                    }
+                } else {
+                    currentStreak = 0;
+                }
+            }
+            
+            return maxStreak;
+        }
+
+        // 7. FÜGGVÉNY: Újraindítás
+        function restartQuiz() {
+            startQuiz();
+        }
+    </script>
+</body>
+</html>
